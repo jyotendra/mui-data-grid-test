@@ -1,27 +1,27 @@
 {
-  "name": "mui-table",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+  "title": "DataGridProDemo Material Demo",
+  "name": "DataGridProDemo",
+  "devDependencies": {
+    "react-scripts": "latest"
   },
+  "description": "https://github.com/mui-org/material-ui-x/blob/v5.0.0/docs/src/pages/components/data-grid/overview/DataGridProDemo.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "react-dom": "latest",
+    "react": "latest",
+    "@mui/x-data-grid-pro": "next",
+    "@mui/x-data-grid-generator": "next",
+    "@mui/styles": "latest",
+    "@mui/material": "latest",
+    "@mui/icons-material": "latest",
+    "@emotion/styled": "latest",
+    "@emotion/react": "latest",
+    "web-vitals": "^1.1.2"
   },
   "browserslist": {
     "production": [
