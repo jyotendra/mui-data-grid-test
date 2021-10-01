@@ -1,79 +1,61 @@
 import * as React from "react";
 import { DataGridPro } from "@mui/x-data-grid-pro";
-import { useDemoData } from "@mui/x-data-grid-generator";
-import {LastNameRenderer} from "./renderer";
+import { productData } from "./data";
+import { makeStyles } from '@mui/styles';
+
+
+import { LastNameRenderer } from "./renderer";
+
+const useStyles = makeStyles(
+  (theme) => {
+    return {
+      root: {
+        height: 520,
+        width: "100%",
+        "& .low-priced": {
+          backgroundColor: "#74B862"
+        },
+        "& .mid-priced": {
+          backgroundColor: "#CAD06F"
+        },
+        "& .high-priced": {
+          backgroundColor: "#F42612"
+        },
+        "& .big-size": {
+          backgroundColor: "#8369D5"
+        },
+        "& .small-size": {
+          backgroundColor: "#D1B3CE"
+        }             
+      },
+    }
+  }
+)
 
 export default function MuiTable() {
-  // const { data } = useDemoData({
-  //   dataSet: 'Commodity',
-  //   rowLength: 100000,
-  //   editable: true,
-  // });
-
-  const data = {
-    columns: [
-      { field: "id", headerName: "ID", width: 90 },
-      {
-        field: "firstName",
-        headerName: "First name",
-        width: 150,
-        editable: true,
-      },
-      {
-        field: "lastName",
-        headerName: "Last name",
-        width: 150,
-        editable: true,
-      },
-      {
-        field: "age",
-        headerName: "Age",
-        type: "number",
-        width: 110,
-        editable: true,
-      },
-      {
-        field: "fullName",
-        headerName: "Full name",
-        description: "This column has a value getter and is not sortable.",
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-          `${params.getValue(params.id, "firstName") || ""} ${
-            params.getValue(params.id, "lastName") || ""
-          }`,
-      },
-    ],
-
-    rows: [
-      {
-        id: 1,
-        lastName: "Snow",
-        firstName: "Jon",
-        age: 35,
-      },
-      { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-      { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-      { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-      { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-      { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-      { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-      { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-    ],
-  };
-
-  console.log(data);
+  const classes = useStyles();
+  const data = productData;
 
   return (
-    <div style={{ height: 520, width: "100%" }}>
-      <DataGridPro
-        {...data}
-        loading={data.rows.length === 0}
-        rowHeight={38}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+    <div>
+      <div className={classes.root}>
+        <DataGridPro
+          {...data}
+          loading={data.rows.length === 0}
+          rowHeight={38}
+          checkboxSelection
+          disableSelectionOnClick
+          getRowClassName={(params) => {
+            let price = params.getValue(params.id, 'unitsPerCase');
+            price = parseFloat(price);
+            let appendClass
+            if (price < 20) appendClass = "low-priced";
+            else if (price >= 20 && price <= 80) appendClass = "mid-priced";
+            else appendClass = "high-priced";
+            return appendClass;
+          }}
+        />
+      </div>
     </div>
   );
 }
